@@ -1,18 +1,18 @@
-import { Component , EventEmitter, Output, Input, OnInit, ViewChild} from '@angular/core';
+import { Component, EventEmitter, Output, Input, OnInit, ViewChild } from '@angular/core';
 declare var jQuery: any;
 import { MapsAPILoader, AgmMap } from '@agm/core';
-import { MapService} from '../../shared.module';
+import { MapService } from '../../shared.module';
 
 
 @Component({
-  selector: 'map-modal',
-  templateUrl: './map-modal.component.html',
-  styleUrls: ['map-modal.component.css'],
+    selector: 'map-modal',
+    templateUrl: './map-modal.component.html',
+    styleUrls: ['map-modal.component.css'],
 
 })
 export class MapModalComponent implements OnInit {
-    @ViewChild('map') map: AgmMap;
-    public constructor() { 
+    @ViewChild('map', { static: false }) map: AgmMap;
+    public constructor() {
     }
     zoom: number = 15;
     ngOnInit(): void {
@@ -20,18 +20,18 @@ export class MapModalComponent implements OnInit {
     }
 
     ngOnChanges(): void {
-        setTimeout(() => {this.map.triggerResize();},500)
+        setTimeout(() => { this.map.triggerResize(); }, 500)
     }
 
     lat: number = 10.762417;
     lng: number = 106.681201;
-    @Input() public title : string;
-    public onCloseMap(){
+    @Input() public title: string;
+    public onCloseMap() {
         jQuery("#mapModal").modal("hide");
     }
     public onOpenModal() {
-        jQuery("#mapModal").modal({backdrop: 'static', keyboard: false});
-        this.resizeMap()      
+        jQuery("#mapModal").modal({ backdrop: 'static', keyboard: false });
+        this.resizeMap()
     }
     markers: marker[] = [
         {
@@ -61,7 +61,7 @@ export class MapModalComponent implements OnInit {
 }
 // just an interface for type safety.
 interface marker {
-	lat: number;
-	lng: number;
-	text: string;
+    lat: number;
+    lng: number;
+    text: string;
 }

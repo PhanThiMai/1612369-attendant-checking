@@ -1,20 +1,19 @@
 import { Component, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { Router } from '@angular/router';
-import * as PNotify from 'pnotify';
 declare var jQuery: any;
 @Component({
     selector: 'app-layout',
     templateUrl: './layout.component.html',
 })
 export class LayoutComponent implements AfterViewInit, AfterViewChecked {
-    public constructor() {}
+    public constructor() { }
 
     public ngAfterViewInit() {
-        jQuery(document).ready(function() {
+        jQuery(document).ready(function () {
 
             console.log('jQuery ready');
             var CURRENT_PATH = window.location.protocol + "//" + window.location.host + window.location.pathname;
-            var setContentHeight = function() {
+            var setContentHeight = function () {
                 // jQuery('#app_content').css('height', jQuery('#app_content_inner').outerHeight());
                 // jQuery('.left_col').css('height', jQuery('.left_col_content').outerHeight());
                 // var leftColHeight = jQuery('.left_col').outerHeight();
@@ -26,7 +25,7 @@ export class LayoutComponent implements AfterViewInit, AfterViewChecked {
                 // }
             };
 
-            jQuery('#sidebar-menu').find('a').on('click', function(ev) {
+            jQuery('#sidebar-menu').find('a').on('click', function (ev) {
                 console.log('clicked - sidebar_menu');
                 var jQueryli = jQuery(this).parent();
 
@@ -36,7 +35,7 @@ export class LayoutComponent implements AfterViewInit, AfterViewChecked {
 
                 if (jQueryli.is('.active')) {
                     jQueryli.removeClass('active active-sm');
-                    jQuery('ul:first', jQueryli).slideUp(function() {
+                    jQuery('ul:first', jQueryli).slideUp(function () {
                         setContentHeight();
                     });
                 } else {
@@ -52,13 +51,13 @@ export class LayoutComponent implements AfterViewInit, AfterViewChecked {
                     }
                     jQueryli.addClass('active').addClass('current-page');
 
-                    jQuery('ul:first', jQueryli).slideDown(function() {
+                    jQuery('ul:first', jQueryli).slideDown(function () {
                         setContentHeight();
                     });
                 }
             });
             // toggle small or large menu 
-            jQuery('#menu_toggle').on('click', function() {
+            jQuery('#menu_toggle').on('click', function () {
                 console.log('clicked - menu toggle');
 
                 if (jQuery('body').hasClass('nav-md')) {
@@ -77,9 +76,9 @@ export class LayoutComponent implements AfterViewInit, AfterViewChecked {
             // check active menu
             jQuery('#sidebar-menu').find('a[href="' + CURRENT_PATH + '"]').parent('li').addClass('current-page');
 
-            jQuery('#sidebar-menu').find('a').filter(function() {
+            jQuery('#sidebar-menu').find('a').filter(function () {
                 return this.href == CURRENT_PATH;
-            }).parent('li').addClass('current-page').parents('ul').slideDown(function() {
+            }).parent('li').addClass('current-page').parents('ul').slideDown(function () {
                 setContentHeight();
             }).parent().addClass('active');
 

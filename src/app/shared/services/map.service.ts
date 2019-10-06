@@ -7,16 +7,16 @@ import { Router } from '@angular/router';
 @Injectable()
 export class MapService {
     // Resolve HTTP using the constructor
-    constructor(public  http: Http, public  appConfig: AppConfig, public  authService: AuthService, public  router: Router) {}
-    public  getMapUrl = 'http://checkingattendance.000webhostapp.com/LogAPI/getLog.php';
-    public getMap(): Observable < { result: string, message: string} > {
+    constructor(public http: Http, public appConfig: AppConfig, public authService: AuthService, public router: Router) { }
+    public getMapUrl = 'http://checkingattendance.000webhostapp.com/LogAPI/getLog.php';
+    public getMap(): Observable<{ result: string, message: string }> {
         let authToken = this.authService.token;
         let headers = new Headers();
         headers.append('x-access-token', `${authToken}`);
         let options = new RequestOptions({ headers: headers });
         return this.http.get(this.getMapUrl)
             // ...and calling .json() on the response to return data
-            .map((res: Response) => res.toString())
+            .map((res: Response) => { return { result: res.toString(), message: res.toString() } })
             //...errors if any
             .catch((error: any) => {
                 if (error.status == 401) {
